@@ -27,6 +27,7 @@
   },
   "homepage": "https://github.com/bguiz/js-async-benchmarks#readme",
   "dependencies": {
+    "co": "~4.6.0",
     "righto": "~1.12.0"
   }
 }

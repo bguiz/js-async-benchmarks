@@ -14,7 +14,11 @@ nvm use 4
 node ./print-version.js
 node ./benchmark-promises.js ${COUNT}
 node ./benchmark-callbacks.js ${COUNT}
+node ./benchmark-generator-promises.js ${COUNT}
+node ./benchmark-generator-callbacks.js ${COUNT}
 nvm use 6
 node ./print-version.js
 node ./benchmark-promises.js ${COUNT}
 node ./benchmark-callbacks.js ${COUNT}
+node ./benchmark-generator-promises.js ${COUNT}
+node ./benchmark-generator-callbacks.js ${COUNT}
