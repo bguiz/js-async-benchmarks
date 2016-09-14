@@ -1,7 +1,5 @@
 'use-strict';
 
-const righto = require('righto');
-
 const common = require('./common.js');
 
 module.exports = {
@@ -15,30 +13,33 @@ function benchmarkCallbacks(count, callback) {
 
 	const times = {
 		track: 0,
-		start: 0,
-		end: 0,
+		start: undefined,
+		end: undefined,
 		elapsed: 0,
 	};
 	common.resetDoLater();
 	times.start = process.hrtime();
-	righto.iterate(function* (reject) {
-		while (count > 0) {
+	function getCallbackStep() {
+		if (count > 0) {
 			--count;
-			const asyncValueArgs = yield righto.surely(common.errbackAction);
-			// console.log({
-			// 	asyncValueArgs,
-			// });
-			if (asyncValueArgs[0]) {
-				reject(asyncValueArgs[0]);
-				return;
-			}
-			times.track = times.track + asyncValueArgs[1];
+			return common.errbackAction((err, asyncValue) => {
+				if (err) {
+					callback(err, asyncValue);
+					return;
+				}
+				// console.log({
+				// 	asyncValue,
+				// });
+				times.track = times.track + asyncValue;
+				getCallbackStep();
+			});
+		} else {
+			times.end = process.hrtime();
+			times.elapsed = common.calculateElapsedTime(times);
+			callback(undefined, times);
 		}
-	})((err, result) => {
-		times.end = process.hrtime();
-		times.elapsed = common.calculateElapsedTime(times);
-		callback(err, times);
-	});
+	}
+	getCallbackStep();
 }
 
 if (process.env.RUN) {
