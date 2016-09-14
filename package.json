@@ -1,0 +1,32 @@
+{
+  "name": "js-async-benchmarks",
+  "version": "0.0.0",
+  "description": "Benchmarks for various ways to do asynchronous Javascript",
+  "main": "common.js",
+  "scripts": {
+    "test": "bash run-benchmarks.sh 512"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bguiz/js-async-benchmarks.git"
+  },
+  "keywords": [
+    "async",
+    "benchmark",
+    "callback",
+    "errback",
+    "promise",
+    "generator",
+    "await",
+    "yield"
+  ],
+  "author": "bguiz",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/bguiz/js-async-benchmarks/issues"
+  },
+  "homepage": "https://github.com/bguiz/js-async-benchmarks#readme",
+  "dependencies": {
+    "righto": "~1.12.0"
+  }
+}
